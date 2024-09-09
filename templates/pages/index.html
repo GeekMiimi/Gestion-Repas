@@ -1,0 +1,113 @@
+{% extends 'baseindex.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+
+  <section class="hero-section d-flex justify-content-center align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="text-center">
+                <div class="hero-section-text text-center">
+                    <h1 class="hero-title text-white text-center">Your Order Is Delivered In a Few Minutes!</h1> 
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+        <div class="container">
+          <div class="row justify-content-center align-items-center">
+            <div class="col-lg-12 col-12 text-center">
+              <br><br>
+              <h2 class="mb-5">Our <span>Categories</span></h2>
+            </div>
+      
+            <div class="col-lg-2 col-md-4 col-6">
+              <div class="categories-block">
+                <a href="{% url 'plats' %}?category=salads" class="d-flex flex-column justify-content-center align-items-center h-100">
+                  <i class="categories-icon bi-book"></i>
+                  <small class="categories-block-title">Salads</small>
+                </a>
+              </div>
+            </div>
+      
+            <div class="col-lg-2 col-md-4 col-6">
+              <div class="categories-block">
+                <a href="{% url 'plats' %}?category=pasta dishes" class="d-flex flex-column justify-content-center align-items-center h-100">
+                  <i class="categories-icon bi-book"></i>
+                  <small class="categories-block-title">Pasta dishes</small>
+                </a>
+              </div>
+            </div>
+      
+            <div class="col-lg-2 col-md-4 col-6">
+              <div class="categories-block">
+                <a href="{% url 'plats' %}?category=tacos" class="d-flex flex-column justify-content-center align-items-center h-100">
+                  <i class="categories-icon bi-book"></i>
+                  <small class="categories-block-title">Tacos</small>
+                </a>
+              </div>
+            </div>
+      
+            <div class="col-lg-2 col-md-4 col-6">
+              <div class="categories-block">
+                <a href="{% url 'plats' %}?category=pizza" class="d-flex flex-column justify-content-center align-items-center h-100">
+                  <i class="categories-icon bi-book"></i>
+                  <small class="categories-block-title">Pizza</small>
+                </a>
+              </div>
+            </div>
+      
+            <div class="col-lg-2 col-md-4 col-6">
+              <div class="categories-block">
+                <a href="{% url 'plats' %}?category=burger" class="d-flex flex-column justify-content-center align-items-center h-100">
+                  <i class="categories-icon bi-book"></i>
+                  <small class="categories-block-title">Burger</small>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="container">
+          <div class="row">
+            {% for plat in plats %}
+            <div class="col-lg-4 col-md-6 col-12">
+              <div class="plat-card">
+                <div class="plat-image">
+                  <img src="{{ plat.image.url }}" alt="{{ plat.nom }}">
+                </div>
+                <div class="plat-details">
+                  <h4>{{ plat.nom }}</h4>
+                  <p class="plat-price">{{ plat.prix }}</p>
+                  <a href="{% url 'plat_details' plat.id %}" class="btn btn-primary">View Details</a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+      
+          <div class="pagination">
+            {% if plats.has_previous %}
+            <a href="?page={{ plats.previous_page_number }}{% if category %}&category={{ category }}{% endif %}" class="page-link">&laquo; Previous</a>
+            {% endif %}
+            <span class="page-current">{{ plats.number }}</span>
+            <span class="page-total"> {{ plats.paginator.num_pages }}</span>
+            {% if plats.has_next %}
+            <a href="?page={{ plats.next_page_number }}{% if category %}&category={{ category }}{% endif %}" class="page-link">Next &raquo;</a>
+            {% endif %}
+          </div>
+        </div>
+      
+</main>
+<style>
+.hero-section {
+    /*  background-repeat: no-repeat;*/
+      background-size: cover;
+      background-position: top;
+      position: relative;
+      padding-top: 50px;
+      padding-bottom: 37%;
+    }</style>
+{% endblock content %}
+

@@ -1,0 +1,146 @@
+{% extends 'basecommande.html' %}
+{% load static %}
+{% load mathfilters %}
+
+{% block content %}
+<main>
+    <header class="hero-section d-flex justify-content-center align-items-center">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-12 col-12 text-center">
+                    <h1 class="text-white">Order Summary</h1>
+
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+
+                            <li class="breadcrumb-item active" aria-current="page">Order Summary</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="confirmation-section section-padding">
+        <div class="container">
+            <h2>Summary</h2>
+            <p class="confirmation-message">Your order has been registered successfully! Please confirm it.</p>
+            <div class="confirmation-details">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td><strong>Command ID:</strong></td>
+                            <td>{{ commande_obj.pk }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Name:</strong></td>
+                            <td>{{ commande_obj.name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Delivery Address:</strong></td>
+                            <td>{{ commande_obj.delivery_address }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Email:</strong></td>
+                            <td>{{ commande_obj.email }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phone:</strong></td>
+                            <td>{{ commande_obj.phone }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total Amount:</strong></td>
+                            <td>{{ commande_obj.total_amount|floatformat:2 }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Payment Method:</strong></td>
+                            <td>{{ commande_obj.payment_method }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h4><strong>Ordered Items:</strong></h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Meal</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ordered_item in ordered_items %}
+                            <tr>
+                                <td>{{ ordered_item.item.nom }}</td>
+                                <td>{{ ordered_item.quantity }}</td>
+                                <td>{{ ordered_item.item.prix }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="confirmation-actions text-center"> <!-- Added 'text-center' class -->
+                {% if commande_obj.payment_method == 'cash_on_delivery' %}
+                <a href="{% url 'delivery' %}" class="custom-btn btn mt-2">Confirm</a>
+                <span class="tabulation"></span>
+                <a href="{% url 'panier' %}" class="custom-btn btn mt-2">Cancel</a>
+                {% else %}
+                <div class="confirmation-actions d-flex justify-content-center align-items-center">
+                <div id="paypal-button-container"></div>
+                </div>
+                <a href="{% url 'panier' %}" class="custom-btn btn mt-2">Cancel</a>
+                {% endif %}
+            </div>
+        </div>
+        </div>
+    </section>
+    
+    <script src="https://www.paypal.com/sdk/js?client-id=AW4SPRQ5F6qwwY37eQ6zC3bsL6uJA0X0MXVbL6AlDCY3WnubF23ZpEj8OIu8TYyyKWH7p3hUOKPbJqV-&currency=USD"></script>
+
+    <script>
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+    
+            // Call your server to set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create( {
+                    purchase_units: [{
+                      amount: {
+                        value: '{{ commande_obj.total_amount |mul:0.10|floatformat:2 }}'
+                      }
+                    }]
+                });
+            },
+    
+            // Call your server to finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(orderData) {
+    
+                  console.log('Capture result', orderData, JSON.stringify(orderData,null,2));
+                  var transaction = orderData.purchase_units[0].payments.captures[0];
+                  alert('Transaction '+transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+    
+                  window.location.href = "{% url 'delivery' %}";
+                });
+            }
+    
+        }).render('#paypal-button-container');
+    </script>
+</main>
+
+    <style>
+        .hero-section {
+      background-size: cover;
+      background-position: top;
+      position: relative;
+      padding-top: 50px;
+      padding-bottom: 21%;
+    }
+    .tabulation {
+        display: inline-block;
+        width: 20px; /* Ajustez la largeur selon vos besoins */
+    }
+
+    </style>
+{% endblock content %}

@@ -1,0 +1,52 @@
+{% include 'parts/navbar.html' %}
+{% load static %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav align-items-center justify-content-center ms-lg-5">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'profile' %}">Profil</a>
+          </li>
+  
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'passwordChange' %}">Password Change</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'order' %}">Orders</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+<h2>Your Orders</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th>N° commande</th>
+        <th>Date commande</th>
+        <th>Montant</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for commande in commandes %}
+      <tr>
+        <td>{{ commande.pk }}</td>
+        <td>{{ commande.date }}</td>
+        <td>{{ commande.total_amount }}</td>
+        <td>{{ commande.statut }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4">Aucune commande trouvée.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}
+
+{% include 'parts/footer.html' %}

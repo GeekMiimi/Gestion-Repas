@@ -1,0 +1,74 @@
+{% extends 'baseplat.html' %}
+{% load static %}
+{% block content %}
+<main>
+       
+    <section class="job-section section-padding pb-0">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-8 col-12">
+                    <h2 class="job-title mb-0">{{plat.nom}} </h2>
+
+                    <div class="job-thumb job-thumb-detail">
+                        <div class="d-flex flex-wrap align-items-center border-bottom pt-lg-3 pt-2 pb-3 mb-4">
+                            <p class="job-price mb-0">
+                                <i class="custom-icon bi-cash me-1"></i>{{plat.prix}} DH
+                            </p>
+                        </div>
+
+                        <h4 class="mt-4 mb-2">Meal Description</h4>
+
+                        <p>{{plat.description}}</p>
+                        <hr>
+                        <h4 class="mt-4 mb-2">Comments</h4>
+                        {% for comment in plat.comments %}
+                            <p>{{ comment.content }}</p>
+                            <p>Posted by: {{ comment.client.username }}</p>
+                            <p>Date: {{ comment.created_at }}</p>
+                            
+                            {% if user.is_authenticated and user == comment.client %}
+                                <form action="{% url 'plat_details' plat.id %}" method="GET">
+                                    <button type="submit" name="delete_comment" value="{{ comment.id }}" class="custom-btn btn mt-2">Delete</button>
+                                </form>
+                            {% endif %}
+                            
+                            <hr>
+                        {% empty %}
+                            <p>No comments yet.</p>
+                        {% endfor %}
+                        <hr>
+                        {% if user.is_authenticated %}
+                            <div class="card-body">
+                                <h5 class="card-title">Leave a comment</h5>
+                                <form action="{% url 'plat_details' plat.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="comment" rows="3" placeholder="Write your comment here"></textarea>
+                                    </div>
+                                    <br>
+                                    <div class="text-center">
+                                        <button type="submit" class="custom-btn btn mt-2">Submit</button>
+                                    </div>
+                                </form>
+                            </div>        
+                        {% else %}
+                            <p>Please log in to leave a comment.</p>
+                        {% endif %}
+                        
+                        <div class="d-flex justify-content-center flex-wrap mt-5 border-top pt-4">
+                            <a href="{% url 'ajouter_panier' plat.id %}" class="custom-btn btn mt-2">Add to Cart</a>
+                            <a href="{% url 'ajouter_wishlist' plat.id %}" class="custom-btn custom-border-btn btn mt-2 ms-lg-4 ms-3">Add to Wishlist</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-12 mt-5 mt-lg-0">
+                    <img src="{{plat.image.url}}" class="job-image me-3 img-fluid" alt="">
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock content %}

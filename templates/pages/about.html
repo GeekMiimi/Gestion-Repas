@@ -1,0 +1,169 @@
+{% extends 'baseabout.html' %}
+{% load static %}
+
+{% block content %}
+
+<main>
+
+    <header class="hero-section d-flex justify-content-center align-items-center">
+     
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-12 col-12 text-center">
+                    <h1 class="text-white">About FoodExpress</h1>
+
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+
+                            <li class="breadcrumb-item active" aria-current="page">About</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="about-section">
+        <br><br><br>
+                <div class="container">
+                    <div class="row justify-content-center align-items-center">
+                      <div class="col-lg-12 col-12 text-center">
+                      <h2 class="mb-0">Discover a World of Culinary Delights at FoodExpress!</h2>
+                      <br>
+                      </div>
+                        <div class="col-lg-12 col-12 text-center">
+                            <div class="about-info-text">
+                                <div class="container">
+                                        <p>Welcome to FoodExpress! We are thrilled to offer you a wide range of delicious cuisines at your fingertips. Whether you're in the mood for piping-hot pizzas, fresh and crisp salads, mouthwatering tacos, juicy burgers, or flavorful pasta dishes, FoodExpress has got you covered. Our carefully curated selection of local restaurants ensures that you have access to the best flavors and ingredients in town. With just a few clicks, you can explore our diverse menu options, customize your orders to your liking, and have your favorite dishes delivered to your doorstep. At FoodExpress, we believe in providing an exceptional dining experience that caters to all tastes and preferences. Join us and indulge in a world of culinary delights that will satisfy even the most discerning palate.</p>
+                                </div>
+                            </div>
+                       </div>
+                              <div class="d-flex align-items-center mt-4">
+                                    <a href="#services-section" class="custom-btn custom-border-btn btn me-4">Explore Services</a>
+
+                                    <a href="{% url 'contact' %}" class="custom-link smoothscroll">Contact</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5 col-12 mt-5 mt-lg-0">
+                            <div class="about-image-wrap">
+                                <div class="about-info d-flex">
+                                    <h4 class="text-white mb-0 me-2">20</h4>
+
+                                    <p class="text-white mb-0">years of experience</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/LOGO.png' %}">
+              <style>
+                /* Couleur orange clair */
+                .orange {
+                  color: orange;
+                }
+            
+                /* Couleur noire */
+                .black {
+                  color: black;
+                }
+            
+                /* Style pour la section */
+                .services-section {
+                  padding: 50px;
+                }
+            
+                
+            
+                .services-block {
+                  background-color: rgb(255, 179, 102); /* Orange clair */
+
+  border-top: 25px solid transparent;
+  border-radius: var(--border-radius-medium);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s;
+  padding: 40px;
+}
+
+.services-block:hover,
+.services-section .services-block-wrap:nth-of-type(odd) .services-block {
+  background: var(--section-bg-color);
+  border-top-color: orange; /* Replace the blue color with orange */
+}
+
+.services-block-body p {
+  margin-bottom: 0;
+}
+
+              </style>
+            </head>
+            <body>
+              <section class="services-section section-padding" id="services-section">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-12 col-12 text-center">
+                      <h2 class="mb-5 black">We deliver best services</h2>
+                    </div>
+                  </div>
+            
+                  <div class="row">
+                    <div class="col-lg-4 col-md-6 col-12">
+                      <div class="services-block">
+                        <div class="services-block-title-wrap">
+                          <h4 class="services-block-title">Varied Menu</h4>
+                        </div>
+                        <div class="services-block-body">
+                          <p>Food Express offers a diverse menu with options to suit every taste and preference, including appetizers, and beverages. They provide a wide range of choices, ensuring that there is something for everyone.</p>
+                        </div>
+                      </div>
+                    </div>
+            
+                    <div class="col-lg-4 col-md-6 col-12">
+                      <div class="services-block">
+                        <div class="services-block-title-wrap">
+                          <h4 class="services-block-title">Fast Delivery</h4>
+                        </div>
+                        <div class="services-block-body">
+                          <p>Food Express prioritizes delivering orders quickly and efficiently. Their dedicated delivery staff ensures that your food arrives promptly, maintaining its quality and freshness. You can enjoy your meal without unnecessary delays.</p>
+                        </div>
+                      </div>
+                    </div>
+            
+                    <div class="col-lg-4 col-md-6 col-12">
+                      <div class="services-block">
+                        <div class="services-block-title-wrap">
+                          <h4 class="services-block-title">Expert Staff</h4>
+                        </div>
+                        <div class="services-block-body">
+                          <p>The staff at Food Express is highly skilled and knowledgeable, providing excellent customer service. They are experts in the cuisine offered, guiding customers, offering recommendations, and answering any questions.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </body>
+            </html>
+            
+</main>
+
+<style>
+  .hero-section {
+      background-size: cover;
+      background-position: top;
+      position: relative;
+      padding-top: 50px;
+      padding-bottom: 21%;
+    }
+</style>
+{% endblock content %}

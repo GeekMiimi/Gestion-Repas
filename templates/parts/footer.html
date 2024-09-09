@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-4 col-md-6 col-12 mb-3">
+                    <div class="d-flex align-items-center mb-4">
+                        <img src="{% static 'images/foodexpress.png' %}" class="img-fluid logo-image">
+
+                        <div class="d-flex flex-column">
+                            <strong class="logo-text">FoodExpress</strong>
+                            <small class="logo-slogan">order with no stress</small>
+                        </div>
+                    </div>  
+
+                    <p class="mb-2">
+                        <i class="custom-icon bi-globe me-1"></i>
+
+                        <a href="{% url 'index' %}" class="site-footer-link">
+                            www.FoodExpress.ma
+                        </a>
+                    </p>
+                    <p class="mb-2">
+                        <i class="custom-icon bi-telephone me-1"></i>
+                        <a href="tel: +212 772161453" class="site-footer-link">
+                            +212 772161453
+                        </a>
+                    </p>
+
+                    <p>
+                        <i class="custom-icon bi-envelope me-1"></i>
+                        <a href="mailto:foodExpress@gmail.com" class="site-footer-link">
+                            foodexpress@gmail.com
+                        </a>
+                    
+                </div>
+
+                <div class="col-lg-2 col-md-3 col-6 ms-lg-auto">
+                </div>
+
+                <div class="col-lg-2 col-md-3 col-6">
+                </div>
+
+                <div class="col-lg-4 col-md-8 col-12 mt-3 mt-lg-0">
+                    <h6 class="site-footer-title">Newsletter</h6>
+
+                    <form class="custom-form newsletter-form" action="{% url 'subscribe_newsletter' %}" method="post" role="form">
+                        {% csrf_token %}
+                        <h6 class="site-footer-title">Get notified of food news</h6>
+
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1"><i class="bi-person"></i></span>
+                            <input type="email" name="newsletter-email" id="newsletter-email" class="form-control" placeholder="yourname@gmail.com" required>
+                            <button type="submit" class="form-control">
+                                <i class="bi-send"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="site-footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-12 d-flex align-items-center">
+                        <p class="copyright-text">Copyright © FoodExpress 2023.</p>
+
+                    </div>
+             
+                    <div class="col-lg-5 col-12 mt-2 mt-lg-0">
+                        
+                        <ul class="social-icon">
+                            <li class="social-icon-item">
+                                <a href="#" class="social-icon-link bi-facebook"></a>
+                            </li>
+
+                            <li class="social-icon-item">
+                                <a href="#" class="social-icon-link bi-linkedin"></a>
+                            </li>
+
+                            <li class="social-icon-item">
+                                <a href="#" class="social-icon-link bi-instagram"></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-12 mt-2 d-flex align-items-center mt-lg-0">
+                    </div>
+
+                    <a class="back-top-icon bi-arrow-up smoothscroll d-flex justify-content-center align-items-center" href="#top"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/counter.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+</body>
+</html>
+
+<style>
+    .social-icon {
+        margin: 0;
+        padding: 0;
+    }
+
+    .social-icon-item {
+        list-style: none;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .social-icon-link {
+        background: var(--custom-btn-bg-color);
+        border-radius: var(--border-radius-large);
+        color: var(--white-color);
+        font-size: var(--btn-font-size);
+        display: block;
+        margin-right: 5px;
+        text-align: center;
+        width: 35px;
+        height: 35px;
+        line-height: 40px;
+        transition: all 0.5s;
+    }
+
+    .social-icon-link:hover {
+        background: orange; /* Change the background color to orange */
+        color: var(--white-color);
+        transform: scale(1.15);
+    }
+</style>

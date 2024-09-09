@@ -1,0 +1,149 @@
+{% extends 'baseplats.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+
+    <header class="hero-section d-flex justify-content-center align-items-center">
+        
+
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-12 col-12 text-center">
+                    <h1 class="text-white">Food Listings</h1>
+
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+
+                            <li class="breadcrumb-item active" aria-current="page">Food listings</li>
+                        </ol>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+    </header>
+ <section class="section-padding pb-0 d-flex justify-content-center align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-12">
+                <form class="laila" action="{% url 'search' %}" method="get" role="form">
+                    <h3 class="text-white mb-3">Search your Meal</h3>
+                    <div class="row">
+                        <div class="col-lg-12 col-12 text-center">
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
+                                <input type="text" id="search-bar" name="plat-title" class="form-control" placeholder="Meal Title" required>
+                            </div>
+                            <button type="submit" class="custom-btn btn mt-2">Search Now</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section class="job-section recent-jobs-section section-padding">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-6 col-12 mb-4">
+                    <h2>Menu</h2>
+
+                </div>
+
+                <div class="clearfix"></div>
+                {% for x in plat %}
+                {% if x.actif == True %}
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="job-thumb job-thumb-box">
+                        <div class="job-image-box-wrap">
+                            <a href="{% url 'plat' x.id %}">
+                                <img src="{{x.image.url}}" class="job-image img-fluid" alt="">
+                            </a>
+                        </div>
+                        <div class="job-body">
+                            <h4 class="job-title">
+                                <a href="{% url 'plat' x.id %}" class="job-title-link">{{x.nom}}</a>
+                            </h4>
+                            <div class="d-flex align-items-center">
+                                {% if x in wishlist_produits %}
+                                <a href="{% url 'supprimer_wishlist' x.id %}" class="bi bi-heart-fill ms-auto me-2"></a>
+                                {% else %}
+                                <a href="{% url 'ajouter_wishlist' x.id %}" class="bi bi-heart ms-auto me-2"></a>
+                                {% endif %}
+                            </div>
+                            <div class="d-flex align-items-center border-top pt-3">
+                                <p class="job-price mb-0">
+                                    <i class="custom-icon bi-cash me-1"></i>
+                                    {{x.prix}} DH
+                                </p>
+
+                                <a href="{% url 'ajouter_panier' x.id %}" class="custom-btn btn ms-auto">Add to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                <div class="col-lg-12 col-12">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center mt-5">
+                            {% if plat.has_previous %}
+                                    <li class="page-item">
+                                          <a class="page-link" href="?page={{ plat.previous_page_number }}" aria-label="Previous">
+                                                <span aria-hidden="true">Prev</span>
+                                          </a>
+                                    </li>
+                            {% endif %}
+
+                            {% for num in plat.paginator.page_range %}
+                                     <li class="page-item{% if num == plat.number %} active{% endif %}">
+                                             <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                     </li>
+                            {% endfor %}
+
+                            {% if plat.has_next %}
+                                        <li class="page-item">
+                                             <a class="page-link" href="?page={{ plat.next_page_number }}" aria-label="Next">
+                                                  <span aria-hidden="true">Next</span>
+                                             </a>
+                                        </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+<style> 
+.laila {
+    background: #000000;
+    border-radius: var(--border-radius-small);
+    padding: 25px;
+  
+  }
+.page-item.active .page-link,
+.page-link:hover {
+  background: orange;
+  border-color: transparent;
+  color: var(--white-color);
+}
+
+.hero-section {
+      background-size: cover;
+      background-position: top;
+      position: relative;
+      padding-top: 50px;
+      padding-bottom: 21%;
+    }
+  </style>
+
+{% endblock content %}

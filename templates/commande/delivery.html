@@ -1,0 +1,46 @@
+{% extends 'basecommande.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <header class="hero-section d-flex justify-content-center align-items-center">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-12 col-12 text-center">
+                    <h1 class="text-white">Delivery</h1>
+
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+
+                            <li class="breadcrumb-item active" aria-current="page">Delivery</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="delivery-section section-padding">
+        <div class="container">
+          <h2>Order Confirmation</h2>
+          <p class="delivery-message"><i class="bi bi-truck"></i> Your order has been confirmed successfully! The delivery man will contact you soon. Please stay reachable.To follow the status of your order click on follow my orders.Thank you for using our services.Team FoodExpress.</p>
+          <a href="{% url 'order' %}" class="custom-btn btn mt-2">Follow my orders</a>
+
+        </div>
+      </section>
+      
+      
+</main>
+<style>
+.hero-section {
+      background-size: cover;
+      background-position: top;
+      position: relative;
+      padding-top: 50px;
+      padding-bottom: 21%;
+    }
+    </style>
+
+{% endblock content %}
